@@ -5,22 +5,27 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 public class Fish {
-	// Every fish has a x which is an int.
+	// Every fish has an x and y starting position, a color, 
+	// it will be little or big, and will be facing left or right.
 	int x; 
 	int y; 
 	Color color; 
 	boolean isLittle;
 	boolean isLeft;
+	
 	// every fish has a destination: (x,y)
-	int destX;
-	int destY;
+	int destX; 
+    int destY;
+	 
 	
 	// Create a random number generator:
 	Random rand = new Random();
 	
 	// Configure the difficulty of game by changing LOW and HIGH
-	int HIGH = 450;
-	int LOW = 0;
+	
+	  int HIGH = 450; 
+	  int LOW = 0;
+	 
 
 			
 	public Fish(Color c, int startX, int startY, 
@@ -32,8 +37,10 @@ public class Fish {
 		this.isLeft = isLeft;
 		
 		//Choose a random destination 
-		this.destX = rand.nextInt(HIGH - LOW) + LOW;
-		this.destY = rand.nextInt(HIGH - LOW) + LOW;	
+		this.destX = 50;
+				//rand.nextInt(HIGH - LOW) + LOW;
+		this.destY = 80;
+		//rand.nextInt(HIGH - LOW) + LOW;	
 		
 	}
 	
@@ -43,26 +50,29 @@ public class Fish {
 		if( this.y < this.destY) {
 			this.y += 1;
 		}
+		if( this.y > this.destY) {
+			this.y -= 1;
+		}
 		if( this.x < this.destX ) {
 			this.x += 1;
 			this.isLeft = false;
 		}
 		if( this.x > this.destX ) {
-			this.x += 1;
+			this.x -= 1;
 			this.isLeft = true;
 		}
-		if( this.x = this.destX ) {
-			this.destX = rand.nextInt(HIGH - LOW) + LOW;
-			this.destY = rand.nextInt(HIGH - LOW) + LOW;
+		if( this.x == this.destX && this.y == this.destY) { this.destX =
+		rand.nextInt(HIGH - LOW) + LOW; this.destY = rand.nextInt(HIGH - LOW) + LOW;
 		}
+		 
 		
 	}
 	
 
 	public void draw(Graphics2D g) {
+		//why is swim here?
 		this.swim();
-		//fish face left and are small
-		//smallFacingRight, facingLeft, and facingRight
+		//smallFacingLeft, smallFacingRight, facingLeft, and facingRight
 		if (isLittle && isLeft) {
 			DrawFish.smallFacingLeft(g,this.color, this.x, this.y);
 		}
